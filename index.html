@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuickQR — Make a QR code in seconds</title>
+<meta name="description" content="QuickQR creates QR codes for links, text and Wi-Fi right in your browser. Nothing is uploaded.">
+<style>
+:root{--paper:#eef0f7;--ink:#10142b;--mut:#5b617f;--cobalt:#2f45ff;--soft:#dde1f3;--white:#fff}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"Avenir Next","Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px;letter-spacing:-.03em;text-decoration:none}
+.logo b{width:28px;height:28px;border-radius:7px;background:var(--ink);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);gap:2px;padding:5px}
+.logo b i{background:var(--paper);border-radius:1px}.logo b i:nth-child(2),.logo b i:nth-child(4),.logo b i:nth-child(9){background:var(--cobalt)}
+.btn{display:inline-block;padding:13px 24px;border-radius:12px;background:var(--cobalt);color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 24px -10px var(--cobalt);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px -10px var(--cobalt)}
+.btn.sm{padding:9px 18px;box-shadow:none}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:56px 0 80px}
+h1{font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-.045em;font-weight:800}
+.hero p{margin:22px 0 32px;font-size:19px;color:var(--mut);max-width:440px}
+.hero small{display:block;margin-top:16px;color:var(--mut);font-size:14px}
+.qr{position:relative;background:var(--white);border-radius:26px;padding:22px;box-shadow:0 40px 80px -40px rgba(16,20,43,.5);overflow:hidden;max-width:380px;justify-self:center;width:100%}
+.qr canvas{display:block;width:100%;height:auto;aspect-ratio:1}
+.qr::after{content:"";position:absolute;left:0;right:0;top:0;height:46px;background:linear-gradient(transparent,rgba(47,69,255,.28));border-bottom:3px solid var(--cobalt);animation:scan 3.6s ease-in-out infinite alternate}
+@keyframes scan{from{transform:translateY(-46px)}to{transform:translateY(400px)}}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.facts div{padding:28px 28px 40px 0}.facts div+div{padding-left:28px;border-left:1px solid var(--soft)}
+.facts h2{font-size:22px;letter-spacing:-.02em;margin-bottom:8px}
+.facts p{color:var(--mut)}
+footer{padding:40px 0;color:var(--mut);font-size:14px}
+@media(max-width:780px){.hero{grid-template-columns:1fr;padding-top:24px}.facts{grid-template-columns:1fr}.facts div,.facts div+div{padding:22px 0;border-left:0;border-bottom:1px solid var(--soft)}}
+@media(prefers-reduced-motion:reduce){.qr::after{animation:none;display:none}.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="index.html"><b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></b>QuickQR</a>
+    <a class="btn sm" href="home.html">Open generator</a>
+  </nav>
+  <header class="hero">
+    <div>
+      <h1>A QR code, before you finish reading this.</h1>
+      <p>Paste a link, a message or your Wi-Fi details. QuickQR draws the code instantly, ready to save as PNG or SVG.</p>
+      <a class="btn" href="home.html">Make a QR code</a>
+      <small>Free. No sign-up. Nothing leaves your device.</small>
+    </div>
+    <div class="qr" aria-hidden="true"><canvas id="demo" width="360" height="360"></canvas></div>
+  </header>
+  <section class="facts">
+    <div><h2>Private</h2><p>Codes are built in your browser. Your text is never uploaded or stored.</p></div>
+    <div><h2>Yours to style</h2><p>Pick colors, dot shapes, margin and size until it matches your brand.</p></div>
+    <div><h2>Print ready</h2><p>Download a sharp PNG, or a vector SVG that stays crisp at any size.</p></div>
+  </section>
+  <footer>QuickQR is a single-file project, hosted on GitHub Pages.</footer>
+</div>
+<script>
+// Decorative code (not scannable): a seeded pattern with three finder squares.
+(function(){
+  const c=document.getElementById('demo'),x=c.getContext('2d'),n=25,s=c.width/n;
+  let r=7;const rnd=()=>(r=(r*16807)%2147483647)/2147483647;
+  const fin=(a,b)=>a<8&&b<8||a>n-9&&b<8||a<8&&b>n-9;
+  x.fillStyle='#10142b';
+  for(let j=0;j<n;j++)for(let i=0;i<n;i++){
+    if(fin(i,j)){
+      const fx=i<8?i:i-(n-7),fy=j<8?j:j-(n-7),d=Math.max(Math.abs(fx-3),Math.abs(fy-3));
+      if(fx>=0&&fx<7&&fy>=0&&fy<7&&d!==2)x.fillRect(i*s,j*s,s+.5,s+.5);
+    }else if(rnd()>.52)x.fillRect(i*s+1,j*s+1,s-2,s-2);
+  }
+})();
+</script>
+</body>
+</html>
