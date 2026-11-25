@@ -1,0 +1,7 @@
+# QuickQR
+
+QuickQR is a free, fast QR code generator that runs entirely in your browser. You can try it live at https://its-nihad.github.io/qr-generator/ with no sign-up, no installation and nothing uploaded anywhere. Everything is built with plain HTML, CSS and JavaScript, and the QR encoder is written from scratch, so the project has no external libraries or dependencies.
+
+Anyone can use this website to create a QR code for almost anything that can be written as a link or a piece of text. That includes your LinkedIn profile, a GitHub repository, your Instagram, X, YouTube or Facebook page, a UPI payment link, a portfolio or personal website, a plain message, or the login details for your Wi-Fi network. Just paste the link or text, pick your colors and dot style, and download the finished code as a PNG or SVG, or copy it straight to your clipboard.
+
+The project is made of two files. The index.html file is the landing page and home.html is the generator itself, so keep them in the same folder when you host them. To run it yourself, download both files and open index.html in any modern browser, or publish them with GitHub Pages. Because nothing is sent to a server, the text you enter stays on your device.
